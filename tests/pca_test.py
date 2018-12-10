@@ -16,33 +16,34 @@ def calculate_accuracy(predicted_y, actual_y):
 
 
 def main(argv):
-  argv = int(argv)
+  print(argv)
+  train_file = argv[0]
+  test_file = argv[1]
+  k_dimension_value = int(argv[2])
   train_PCA = Principal_component_analysis()
-  train_PCA.get_data('../data/sonar-train.txt')
+  train_PCA.get_data(train_file)
   train_PCA.get_x_and_y()
   train_PCA.calc_co_variance()
-  train_PCA.calc_weight_matrix(argv)
+  train_PCA.calc_weight_matrix(k_dimension_value)
   train_PCA.calc_new_feature_space()
   train_set_reduced_features = train_PCA.reduced_feature_space
   train_set_y = train_PCA.y
 
   test_PCA = Principal_component_analysis()
-  test_PCA.get_data('../data/sonar-test.txt')
+  test_PCA.get_data(test_file)
   test_PCA.get_x_and_y()
   test_PCA.calc_co_variance()
-  test_PCA.calc_weight_matrix(argv)
+  test_PCA.calc_weight_matrix(k_dimension_value)
   test_PCA.calc_new_feature_space()
   test_set_reduced_features = test_PCA.reduced_feature_space
   test_set_y = test_PCA.y
   knn = Knn()
-  count = 0
   predictions = []
-  for item in test_set_reduced_features:
-    prediction = knn.make_prediction(train_set_reduced_features, test_set_reduced_features[count], train_set_y)
+  for index in range(len(test_set_reduced_features)):
+    prediction = knn.make_prediction(train_set_reduced_features, test_set_reduced_features[index], train_set_y)
     predictions.append(prediction)
-    count += 1
   calculate_accuracy(predictions, test_set_y)
 
 
 if __name__ == '__main__':
-    main(sys.argv[2])
+    main(sys.argv[1:])
