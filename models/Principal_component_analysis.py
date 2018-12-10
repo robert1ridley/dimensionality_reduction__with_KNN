@@ -38,9 +38,9 @@ class Principal_component_analysis(object):
     self.eigen_pairs = eigen_pairs
 
 
-  def calc_weight_matrix(self):
+  def calc_weight_matrix(self, comp_number):
     intermediate_list = []
-    for i in range(10):
+    for i in range(comp_number):
       intermediate_list.append(self.eigen_pairs[i][1].reshape(60, 1))
     self.weight_matrix = np.hstack(intermediate_list)
 

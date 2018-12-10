@@ -15,12 +15,13 @@ def calculate_accuracy(predicted_y, actual_y):
   print(accuracy)
 
 
-def main():
+def main(argv):
+  argv = int(argv)
   train_PCA = Principal_component_analysis()
   train_PCA.get_data('../data/sonar-train.txt')
   train_PCA.get_x_and_y()
   train_PCA.calc_co_variance()
-  train_PCA.calc_weight_matrix()
+  train_PCA.calc_weight_matrix(argv)
   train_PCA.calc_new_feature_space()
   train_set_reduced_features = train_PCA.reduced_feature_space
   train_set_y = train_PCA.y
@@ -29,7 +30,7 @@ def main():
   test_PCA.get_data('../data/sonar-test.txt')
   test_PCA.get_x_and_y()
   test_PCA.calc_co_variance()
-  test_PCA.calc_weight_matrix()
+  test_PCA.calc_weight_matrix(argv)
   test_PCA.calc_new_feature_space()
   test_set_reduced_features = test_PCA.reduced_feature_space
   test_set_y = test_PCA.y
@@ -44,4 +45,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[2])
