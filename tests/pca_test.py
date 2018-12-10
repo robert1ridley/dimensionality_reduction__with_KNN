@@ -12,11 +12,10 @@ def calculate_accuracy(predicted_y, actual_y):
     else:
       incorrect_prediction_count += 1
   accuracy = correct_prediction_count / (correct_prediction_count + incorrect_prediction_count)
-  print(accuracy)
+  print("ACCURACY: " + str(accuracy))
 
 
 def main(argv):
-  print(argv)
   train_file = argv[0]
   test_file = argv[1]
   k_dimension_value = int(argv[2])

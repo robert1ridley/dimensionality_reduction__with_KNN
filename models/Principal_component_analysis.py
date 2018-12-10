@@ -1,4 +1,4 @@
-from utils import get_raw_data, sort_data
+from utils import get_raw_data, preprocess_data
 from pandas import DataFrame as df
 import numpy as np
 
@@ -17,7 +17,7 @@ class Principal_component_analysis(object):
 
   def get_data(self, filepath):
     raw_data = get_raw_data(filepath)
-    sorted_data = sort_data(raw_data)
+    sorted_data = preprocess_data(raw_data)
     self.row_length = len(sorted_data[0])
     self.data = df(sorted_data)
 

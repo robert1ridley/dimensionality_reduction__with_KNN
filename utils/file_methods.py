@@ -5,7 +5,7 @@ def get_raw_data(filepath):
   return data
 
 
-def sort_data(in_data):
+def preprocess_data(in_data):
   list_of_lines = []
   for line in in_data:
     new_line = []
