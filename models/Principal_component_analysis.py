@@ -3,7 +3,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from utils import get_raw_data, preprocess_data
 from pandas import DataFrame as df
 import numpy as np
-from sklearn.preprocessing import StandardScaler
+
 
 class Principal_component_analysis(object):
 
@@ -26,8 +26,6 @@ class Principal_component_analysis(object):
 
 
   def get_x_and_y(self):
-    # X = self.data.ix[:, 0:(self.row_length - 2)].values
-    # self.X = StandardScaler().fit_transform(X)
     self.X = self.data.ix[:, 0:(self.row_length - 2)].values
     self.y = self.data.ix[:,self.row_length-1].values
 
