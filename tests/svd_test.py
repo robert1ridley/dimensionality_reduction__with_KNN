@@ -39,12 +39,10 @@ def main(argv):
   X, y = get_x_and_y(data, row_length)
   train_svd = Svd(X, k_dimension_value)
   train_params = train_svd.calc_svd()
-
   test_data, row_length = get_data(test_file)
   test_X, test_y = get_x_and_y(test_data, row_length)
   test_svd = Svd(test_X, k_dimension_value)
   test_params = test_svd.calc_svd()
-
   knn = Knn()
   predictions = []
   for index in range(len(test_params)):
