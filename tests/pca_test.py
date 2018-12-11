@@ -31,10 +31,7 @@ def main(argv):
   test_PCA = Principal_component_analysis()
   test_PCA.get_data(test_file)
   test_PCA.get_x_and_y()
-  test_PCA.calc_co_variance()
-  test_PCA.calc_weight_matrix(k_dimension_value)
-  test_PCA.calc_new_feature_space()
-  test_set_reduced_features = test_PCA.reduced_feature_space
+  test_set_reduced_features = test_PCA.X.dot(train_PCA.weight_matrix)
   test_set_y = test_PCA.y
   knn = Knn()
   predictions = []
