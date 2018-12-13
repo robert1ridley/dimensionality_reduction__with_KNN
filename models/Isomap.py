@@ -30,5 +30,4 @@ class Isomap(object):
     intermediate_list = []
     for k in range(K):
       intermediate_list.append(eigen_pairs[k][1].reshape(len(D-1), 1))
-    Z = np.hstack(intermediate_list)
-    return Z
+    return np.hstack(intermediate_list)
