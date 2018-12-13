@@ -50,6 +50,7 @@ def main(args):
   predictions = []
   test_iso = Isomap(K_val, number_of_neighbors)
   for i in range(len(test_X)):
+    print("PRED: " + str(i))
     this_item_x = np.vstack((X, test_X[i]))
     item_dist = test_iso.calculate_distance_matrix(this_item_x, this_item_x)
     item_iso = test_iso.get_isomap(item_dist)

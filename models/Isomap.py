@@ -3,6 +3,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import numpy as np
 from sklearn import metrics
 from scipy.sparse.csgraph import floyd_warshall as fw
+from operator import itemgetter
 
 
 class Isomap(object):
@@ -10,36 +11,24 @@ class Isomap(object):
   def __init__(self, in_feature_size, in_neighbors):
     self.lower_dim_feature_space_size = int(in_feature_size)
     self.number_of_neighbors = int(in_neighbors)
-    self.floyd_shortest_path = None
 
 
   def calculate_distance_matrix(self, x, y):
-    d = metrics.pairwise_distances(x, y)
-    return d
-
-
-  def cal_B(self, D):
-    (n1, n2) = D.shape
-    DD = np.square(D)
-    Di = np.sum(DD, axis=1) / n1
-    Dj = np.sum(DD, axis=0) / n1
-    Dij = np.sum(DD) / (n1 ** 2)
-    B = np.zeros((n1, n1))
-    for i in range(n1):
-      for j in range(n2):
-        B[i, j] = (Dij + DD[i, j] - Di[i] - Dj[j]) / (-2)
-    return B
+    return metrics.pairwise_distances(x, y)
 
 
   def get_isomap(self, D):
     K = self.lower_dim_feature_space_size
-    self.floyd_shortest_path = fw(D)
-    B = self.cal_B(self.floyd_shortest_path)
-    Be, Bv = np.linalg.eigh(B)
-    Be_sort = np.argsort(-Be)
-    Be = Be[Be_sort]
-    Bv = Bv[:, Be_sort]
-    Bez = np.diag(Be[0:K])
-    Bvz = Bv[:, 0:K]
-    Z = np.dot(np.sqrt(Bez), Bvz.T).T
+    floyd_shortest_path = fw(D)
+    eig_val, eig_vec = np.linalg.eig(floyd_shortest_path)
+    eigen_pairs = []
+    for i in range(len(eig_val)):
+      eigen_pair = (np.abs(eig_val[i]), eig_vec[:,i])
+      eigen_pairs.append(eigen_pair)
+    eigen_pairs.sort(key=itemgetter(0))
+    eigen_pairs.reverse()
+    intermediate_list = []
+    for k in range(K):
+      intermediate_list.append(eigen_pairs[k][1].reshape(len(D-1), 1))
+    Z = np.hstack(intermediate_list)
     return Z
