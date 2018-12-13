@@ -15,8 +15,8 @@ def get_data(filepath):
 
 
 def get_x_and_y(data, row_length):
-  X = data.ix[:,0:(row_length-2)].values
-  y = data.ix[:,row_length-1].values
+  X = data.loc[:,0:(row_length-2)].values
+  y = data.loc[:,row_length-1].values
   return X, y
 
 
@@ -55,8 +55,7 @@ def main(args):
     item_iso = test_iso.get_isomap(item_dist)
     prediction = knn.make_prediction(train_iso, item_iso, y)
     predictions.append(prediction)
-  acc = calculate_accuracy(predictions, test_y)
-  print(acc)
+  calculate_accuracy(predictions, test_y)
 
 
 if __name__ == '__main__':

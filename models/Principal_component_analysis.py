@@ -26,8 +26,8 @@ class Principal_component_analysis(object):
 
 
   def get_x_and_y(self):
-    self.X = self.data.ix[:, 0:(self.row_length - 2)].values
-    self.y = self.data.ix[:,self.row_length-1].values
+    self.X = self.data.loc[:, 0:(self.row_length - 2)].values
+    self.y = self.data.loc[:,self.row_length-1].values
 
 
   def calc_co_variance(self):
