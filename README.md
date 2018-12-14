@@ -37,6 +37,6 @@ After cloning the repository:
  * Start the Isomap test:
     - Ensure that you are inside `/dimensionality_reduction__with_KNN` and that your virtual environment is running.
     - Enter `python tests/isomap_test.py <training dataset filepath> <test dataset filepath> <number of dimentions> <number of neighbors for distance calculation>`.
-    For example, to run a test on the `sonar` dataset with parameter dimensions reduced to 10 and the gensim destance for 4 neighbors, enter 
+    For example, to run a test on the `sonar` dataset with parameter dimensions reduced to 10 and the gensim distance for the 4 nearest neighbors, enter 
     `python tests/pca_test.py data/sonar-train.txt data/sonar-test.txt 10 4`. This will output the 1-NN accuracy in the terminal.
     - Deactivate your virtual environment by entering `deactivate`.
